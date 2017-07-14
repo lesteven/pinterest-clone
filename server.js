@@ -24,7 +24,6 @@ db.once('open',function(){
 
 //passport
 var passport = require('passport');
-var passportTwitter = require('./routes/twitterRouter')
 app.use(require('express-session')({
   secret: '9054f3048dgfd',
   resave:true,
@@ -33,19 +32,10 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/auth/twitter',passportTwitter.authenticate('twitter'))
-
-app.get('/auth/twitter/callback',
-  passportTwitter.authenticate('twitter',{
-    failureRedirect: '/failed'
-  }),
-  function(req,res){
-    res.redirect('/');
-  }
-)
-
 
 //routers
+var authRouter = require('./routes/authRouter');
+
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
@@ -55,6 +45,7 @@ app.get('*.js', function (req, res, next) {
 app.use(express.static(__dirname + '/dist'));
 app.use('/',express.static(__dirname + '/public'));
 
+app.use('/auth/twitter', authRouter);
 
 //redirect  to client
 app.get('*', function(req,res){

@@ -1,5 +1,3 @@
-//var express = require('express');
-//var twitterRouter = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
 var config = require('../config.js');
