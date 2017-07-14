@@ -7,6 +7,7 @@ var port = process.env.PORT || 3000;
 var path = require('path');
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(require('cookie-parser')());
 
 //database
 var mongoose = require('mongoose');
@@ -21,7 +22,30 @@ db.once('open',function(){
 	console.log('Connected correctly to server');
 })
 
+//passport
+var passport = require('passport');
+var passportTwitter = require('./routes/twitterRouter')
+app.use(require('express-session')({
+  secret: '9054f3048dgfd',
+  resave:true,
+  saveUninitialized:true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.get('/auth/twitter',passportTwitter.authenticate('twitter'))
+
+app.get('/auth/twitter/callback',
+  passportTwitter.authenticate('twitter',{
+    failureRedirect: '/failed'
+  }),
+  function(req,res){
+    res.redirect('/');
+  }
+)
+
+
+//routers
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
@@ -31,10 +55,11 @@ app.get('*.js', function (req, res, next) {
 app.use(express.static(__dirname + '/dist'));
 app.use('/',express.static(__dirname + '/public'));
 
-app.use('/goodbye',function(req,res){
-	res.send('goodbye world!')
-})
 
+//redirect  to client
+app.get('*', function(req,res){
+  res.sendFile(path.join(__dirname+'/public/index.html'))
+})
 
 app.listen(port,function(){
 	console.log(`Listening on port ${port}`)
