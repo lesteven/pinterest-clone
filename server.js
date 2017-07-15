@@ -47,6 +47,10 @@ app.use('/',express.static(__dirname + '/public'));
 
 app.use('/auth/twitter', authRouter);
 
+app.get('/user',function(req,res){
+  console.log(req.user)
+  res.json(req.user)
+})
 //redirect  to client
 app.get('*', function(req,res){
   res.sendFile(path.join(__dirname+'/public/index.html'))

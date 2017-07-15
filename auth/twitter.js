@@ -9,25 +9,26 @@ passport.use(new TwitterStrategy({
     callbackURL: config.URL
   },
   function(accessToken, refreshToken, profile, done) {
-
     var searchQuery = {
       name: profile.displayName
     };
 
-    var updates = {
+    var account = {
       name: profile.displayName,
       twitterID: profile.id
     };
 
-    var options = {
-      upsert: true
-    };
-
-    // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
+    User.findOne(searchQuery, function(err, user) {
+     // console.log('done',done)
       if(err) {
         return done(err);
-      } else {
+      } 
+      if(!user){
+        User.create(account,function(err,newUser){
+          return done(null,newUser)
+        })
+      }
+      else {
         return done(null, user);
       }
     });
@@ -35,7 +36,7 @@ passport.use(new TwitterStrategy({
 ));
 
 passport.serializeUser(function(user, cb) {
-  cb(null, user);
+  cb(null, user.id);
 });
 
 passport.deserializeUser(function(obj, cb) {
