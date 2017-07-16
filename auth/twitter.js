@@ -9,14 +9,14 @@ passport.use(new TwitterStrategy({
     callbackURL: config.URL
   },
   function(accessToken, refreshToken, profile, done) {
-    
+    console.log(profile.username)
     var account = {
+      username: profile.username,
       name: profile.displayName,
       twitterID: profile.id
     };
 
     User.findOne({twitterID: profile.id}, function(err, user) {
-     // console.log('done',done)
       if(err) {
         return done(err);
       } 

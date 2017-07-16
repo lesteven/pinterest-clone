@@ -1,10 +1,11 @@
 import {createStore, applyMiddleware, combineReducers,compose} from 'redux';
 import thunk from 'redux-thunk';
 import user from './modules/loginModule';
-
+import pin from './modules/postModule';
 
 const reducers = combineReducers({
-	user
+	user,
+	pin
 })
 
 export default function configureStore(initialState){
