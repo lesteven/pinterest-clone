@@ -6,40 +6,42 @@ var User = require('../models/user');
 pinRouter.route('/')
 
 .get(function(req,res){
+	//console.log(req.user._id)
 	User
-	.find()
+	.findOne({_id:req.user._id})
 	.populate('posts')
-	.exec(function(err,post){
+	.exec(function(err,data){
 		if(err) throw err
-			res.json(post)
-		console.log(post)
+		console.log(data)
+		res.json(data.posts)
 	})
 })
-.post(function(req,res){
-	console.log(req.user._id)
-	var data = req.body;
-	data._creator=req.user._id;
-
-	/*
-	Post.create(data,function(err,post){
-		if(err) throw err;
-	})*/
-	
+.post(function(req,res){	
 	User.findOne({_id:req.user._id},function(err,user){
-		var test = new Post({
+		var pin = new Post({
 			_creator: req.user._id,
 			description: req.body.description,
 			url:req.body.url
 		})
-		test.save(function(err){
+		pin.save(function(err){
 			if(err) return handleError(err);
 		})
-		console.log(test)
-		user.posts.push(test)
+		user.posts.push(pin)
 		user.markModified('posts')
 		user.save();
-		res.json(test)
+		res.json(pin)
 	})
 })
 
+pinRouter.route('/all')
+
+.get(function(req,res){
+	Post
+	.populate('_url')
+	.exec(function(err,post){
+		if(err) throw err
+		console.log(post)
+		res.json(post)
+	})
+})
 module.exports = pinRouter;

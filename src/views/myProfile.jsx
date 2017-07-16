@@ -17,7 +17,7 @@ class MyProfile extends Component{
 	}
 	componentWillReceiveProps(props){
 		props.user.name?
-		this.props.fetchData('/pin',this.props.post):
+		null:
 		props.history.push('/');
 	}
 	postData(){
@@ -28,7 +28,9 @@ class MyProfile extends Component{
 		return postData;
 	}
 	componentDidMount(){
+		this.props.user.name?
 		this.props.fetchData('/pin',this.props.post)
+		:null
 	}
 	render(){
 		return(

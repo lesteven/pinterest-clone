@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var User = require('./user');
 
 var Post = new Schema({
 	_creator:{type:String,ref:'User'},
@@ -9,4 +8,4 @@ var Post = new Schema({
 	likes:[{type:Schema.Types.ObjectId,ref:'User'}]
 })
 
-module.exports = mongoose.model('Posts',Post)
+module.exports = mongoose.model('Post',Post)

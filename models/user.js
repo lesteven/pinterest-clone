@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Post = require('./post.js')
 
 var User = new Schema({
 	username:String,
@@ -9,4 +8,4 @@ var User = new Schema({
 	posts:[{type:Schema.Types.ObjectId,ref:'Post'}]
 })
 
-module.exports = mongoose.model('Users',User)
+module.exports = mongoose.model('User',User)
