@@ -31,6 +31,25 @@ a:hover{
 	opacity:0.5;
 	cursor:pointer;
 }
+.owner{
+	position:absolute;
+	top:5px;
+	right:5px;
+	background-color: #0a0941;
+	border:none;
+	color:white;
+	opacity:0.5;
+	cursor:pointer;
+}
+.description{
+	position:absolute;
+	bottom:5px;
+	left:5px;
+	opacity:0.5;
+	color:white;
+	background-color:black;
+	padding:1%;
+}
 img{
 	max-width:250px;
 }
