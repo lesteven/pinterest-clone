@@ -16,11 +16,7 @@ class MyProfile extends Component{
 	handleChange(event){
 		this.setState({[event.target.name]:event.target.value})
 	}
-	componentWillReceiveProps(props){
-		props.user.name?
-		null:
-		props.history.push('/');
-	}
+
 	postData(){
 		let postData ={
 			description:this.state.description,
@@ -31,7 +27,7 @@ class MyProfile extends Component{
 	componentDidMount(){
 		this.props.user.name?
 		this.props.fetchData('/pin',this.props.post)
-		:null
+		:this.props.history.push('/')
 	}
 	render(){
 		return(
@@ -53,7 +49,7 @@ class MyProfile extends Component{
 					<br/>
 					<input type='submit' value='Post'/>
 				</form>
-				<Grid />
+				<Grid data={this.props.pin} />
 			</div>
 		)
 	}

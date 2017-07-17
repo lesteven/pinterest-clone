@@ -7,14 +7,7 @@ pinRouter.route('/')
 
 .get(function(req,res){
 	//console.log(req.user._id)
-	User
-	.findOne({_id:req.user._id})
-	.populate('posts')
-	.exec(function(err,data){
-		if(err) throw err
-		console.log(data)
-		res.json(data.posts)
-	})
+	getUserPins(req,res)
 })
 .post(function(req,res){	
 	User.findOne({_id:req.user._id},function(err,user){
@@ -28,9 +21,15 @@ pinRouter.route('/')
 		})
 		user.posts.push(pin)
 		user.markModified('posts')
-		user.save();
-		res.json(pin)
+		user.save(function(){
+			getUserPins(req,res)
+		});
 	})
+
+})
+.delete(function(req,res){
+	console.log(req.body)
+	deletePin(req,res,req.body.id)
 })
 
 pinRouter.route('/all')
@@ -44,4 +43,29 @@ pinRouter.route('/all')
 		res.json(post)
 	})
 })
+
+function getUserPins(req,res){
+	User
+	.findOne({_id:req.user._id})
+	.populate('posts')
+	.exec(function(err,data){
+		if(err) throw err
+		//console.log('data',data)
+		res.json(data.posts)
+	})
+}
+function deletePin(req,res,id){
+	Post.findOneAndRemove({_id:id})
+	.exec(function(err,removed){
+		User.findOneAndUpdate(
+			{_id:req.user._id},
+			{$pull:{posts:id}},
+			{new:true},
+			function(err,removed){
+				if(err){console.log(err)}
+					getUserPins(req,res)
+			}
+		)
+	})
+}
 module.exports = pinRouter;
