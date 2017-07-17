@@ -10,11 +10,13 @@ pinRouter.route('/')
 	getUserPins(req,res)
 })
 .post(function(req,res){	
+	//console.log(req.user)
 	User.findOne({_id:req.user._id},function(err,user){
 		var pin = new Post({
 			_creator: req.user._id,
 			description: req.body.description,
-			url:req.body.url
+			url:req.body.url,
+			owner:req.user.username
 		})
 		pin.save(function(err){
 			if(err) return handleError(err);
@@ -28,20 +30,8 @@ pinRouter.route('/')
 
 })
 .delete(function(req,res){
-	console.log(req.body)
+	//console.log(req.body)
 	deletePin(req,res,req.body.id)
-})
-
-pinRouter.route('/all')
-
-.get(function(req,res){
-	Post
-	.populate('_url')
-	.exec(function(err,post){
-		if(err) throw err
-		console.log(post)
-		res.json(post)
-	})
 })
 
 function getUserPins(req,res){

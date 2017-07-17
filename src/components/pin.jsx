@@ -28,8 +28,9 @@ class Pin extends Component{
 			<div className='grid-item'>
 				<img onLoad={this.props.handleLoad}
 					src={this.props.url}/>
+				<p className='owner'>{this.props.owner}</p>
 				<p className='description'>{this.props.description}</p>
-				{this.deleteButton(this.data())}
+				{this.props.user.username===this.props.owner?this.deleteButton(this.data()):null}
 			</div>
 		)
 	}

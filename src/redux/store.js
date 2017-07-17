@@ -2,10 +2,12 @@ import {createStore, applyMiddleware, combineReducers,compose} from 'redux';
 import thunk from 'redux-thunk';
 import user from './modules/loginModule';
 import pin from './modules/postModule';
+import recent from './modules/recentModule';
 
 const reducers = combineReducers({
 	user,
-	pin
+	pin,
+	recent
 })
 
 export default function configureStore(initialState){

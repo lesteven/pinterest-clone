@@ -29,6 +29,7 @@ a:hover{
 	border:none;
 	color:white;
 	opacity:0.5;
+	cursor:pointer;
 }
 img{
 	max-width:250px;
