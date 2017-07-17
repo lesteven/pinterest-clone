@@ -17,6 +17,14 @@ a:hover{
 	padding: 1%;
 	text-align: right;
 }
+#grid{
+	border-style: solid;
+	border-color: black;
+}
+
+img{
+	max-width:250px;
+}
 input{
 	padding:1%;
 	margin:1%;

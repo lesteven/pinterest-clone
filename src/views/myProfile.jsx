@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {fetchData,postInfo} from '../redux/modules/fetchThunk';
 import {post} from '../redux/modules/postModule';
+import Grid from '../components/grid.jsx';
 
 class MyProfile extends Component{
 	constructor(props){
@@ -52,6 +53,7 @@ class MyProfile extends Component{
 					<br/>
 					<input type='submit' value='Post'/>
 				</form>
+				<Grid />
 			</div>
 		)
 	}
