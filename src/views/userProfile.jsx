@@ -13,7 +13,6 @@ class UserProfile extends Component{
 		let data = JSON.parse(JSON.stringify(this.props.profile[0]))
 		return(
 			<div>
-				<PostForm />
 				<h3>{data.owner || this.props.user.username}</h3>
 			</div>
 		)
@@ -21,6 +20,7 @@ class UserProfile extends Component{
 	render(){
 		return(
 			<div>
+				<PostForm />
 				{this.props.profile[0]?this.profile():null}
 				<Grid data={this.props.profile} delete='/pin'/>
 			</div>
