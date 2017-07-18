@@ -9,6 +9,12 @@ class UserProfile extends Component{
 	componentDidMount(){
 		this.props.fetchData('/profile',this.props.profilePosts)
 	}
+	componentWillReceiveProps(newprops){
+		//console.log(newprops.location.pathname)
+		if(this.props.location.pathname !== newprops.location.pathname){
+			this.props.fetchData('/profile',this.props.profilePosts)
+		}
+	}
 	profile(){
 		let data = JSON.parse(JSON.stringify(this.props.profile[0]))
 		return(
