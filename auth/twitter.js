@@ -4,8 +4,8 @@ var User = require('../models/user');
 var TwitterStrategy  = require('passport-twitter').Strategy;
 
 passport.use(new TwitterStrategy({
-    consumerKey: process.env.KEY, //|| config.KEY),
-    consumerSecret: process.env.SECRET, //|| config.SECRET),
+    consumerKey: process.env.KEY, // || config.KEY),
+    consumerSecret: process.env.SECRET,// || config.SECRET),
     callbackURL: 'https://stormy-badlands-58815.herokuapp.com/auth/twitter/callback'
   },
   function(accessToken, refreshToken, profile, done) {

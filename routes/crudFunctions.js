@@ -1,5 +1,6 @@
 var Post = require('../models/post');
 var User = require('../models/user');
+var mongoose = require('mongoose');
 
 
 exports.delete = (req,res,id,cb) =>{
@@ -18,12 +19,19 @@ exports.delete = (req,res,id,cb) =>{
 }
 
 exports.getUserPins = (req,res,id)=>{
-	User
-	.findOne({_id:id})
-	.populate('posts')
-	.exec(function(err,data){
-		if(err) throw err
-		//console.log('data',data)
-		res.json(data.posts)
-	})
+	if(mongoose.Types.ObjectId.isValid(id)){
+		User
+		.findOne({_id:id})
+		.populate('posts')
+		.exec(function(err,data){
+			if(err) throw err
+			//console.log('data',data)
+			console.log(data.posts)
+			res.json(data.posts)
+		})
+	}
+	else{
+		res.json([])
+	}
+
 }

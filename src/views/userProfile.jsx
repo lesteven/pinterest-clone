@@ -20,9 +20,9 @@ class UserProfile extends Component{
 	render(){
 		return(
 			<div>
-				{this.props.user?<PostForm />:null}
+				{this.props.user.username?<PostForm />:null}
 				{this.props.profile[0]?this.profile():null}
-				<Grid data={this.props.profile} delete='/pin'/>
+				{this.props.profile?<Grid data={this.props.profile} delete='/pin'/>:null}
 			</div>
 		)
 	}
