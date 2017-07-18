@@ -12,6 +12,7 @@ class PostForm extends Component{
 			url:''
 		}
 		this.handleChange = this.handleChange.bind(this);
+		this.resetData = this.resetData.bind(this);
 	}
 	handleChange(event){
 		this.setState({[event.target.name]:event.target.value})
@@ -36,7 +37,7 @@ class PostForm extends Component{
 			<form autoComplete='off' onSubmit={(e)=>{
 				e.preventDefault();this.props.postInfo('/pin',
 					'POST',this.postData(),this.props.profilePosts);
-					this.setState(resetData());
+					this.setState(this.resetData());
 			}}>
 				<input type='text' name = 'description'
 					onChange={this.handleChange}
