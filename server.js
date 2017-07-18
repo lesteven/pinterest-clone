@@ -37,6 +37,7 @@ app.use(passport.session());
 var authRouter = require('./routes/authRouter');
 var pinRouter = require('./routes/pinRouter');
 var recentRouter = require('./routes/recentRouter');
+var profileRouter = require('./routes/profileRouter');
 
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
@@ -50,6 +51,7 @@ app.use('/',express.static(__dirname + '/public'));
 app.use('/auth', authRouter);
 app.use('/pin',pinRouter);
 app.use('/recent',recentRouter);
+app.use('/profile',profileRouter);
 
 //redirect  to client
 app.get('*', function(req,res){

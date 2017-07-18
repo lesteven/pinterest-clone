@@ -1,8 +1,10 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {fetchData,postInfo} from '../redux/modules/fetchThunk';
-import {post} from '../redux/modules/postModule';
 import {recentPosts} from '../redux/modules/recentModule';
+import {profilePosts} from '../redux/modules/profileModule';
+import {Link} from 'react-router-dom';
+
 
 class Pin extends Component{
 	constructor(props){
@@ -17,7 +19,7 @@ class Pin extends Component{
 	deleteButton(url,data){
 		let func;
 		if(url === '/pin'){
-			func = this.props.post
+			func = this.props.profilePosts
 		}
 		else{
 			func = this.props.recentPosts
@@ -35,7 +37,7 @@ class Pin extends Component{
 			<div className='grid-item'>
 				<img onLoad={this.props.handleLoad}
 					src={this.props.url}/>
-				<button className='owner'>{this.props.owner}</button>
+				<Link to={'/'+ this.props.ownerID} className='owner'>{this.props.owner}</Link>
 				<p className='description'>{this.props.description}</p>
 				{this.props.user.username===this.props.owner?this.deleteButton(this.props.delete,this.data()):null}
 			</div>
@@ -53,7 +55,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
 	return{
 		postInfo:(url,method,data,actFunc)=>dispatch(postInfo(url,method,data,actFunc)),
-		post:(pin)=>dispatch(post(pin)),
+		profilePosts:(profile)=>dispatch(profilePosts(profile)),
 		recentPosts:(recent)=>dispatch(recentPosts(recent))
 	}
 }

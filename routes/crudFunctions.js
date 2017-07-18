@@ -11,8 +11,19 @@ exports.delete = (req,res,id,cb) =>{
 			{new:true},
 			function(err,removed){
 				if(err){console.log(err)}
-					cb(req,res)
+					cb(req,res,req.user._id)
 			}
 		)
+	})
+}
+
+exports.getUserPins = (req,res,id)=>{
+	User
+	.findOne({_id:id})
+	.populate('posts')
+	.exec(function(err,data){
+		if(err) throw err
+		//console.log('data',data)
+		res.json(data.posts)
 	})
 }

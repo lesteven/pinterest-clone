@@ -7,10 +7,6 @@ var crud = require('./crudFunctions');
 
 pinRouter.route('/')
 
-.get(function(req,res){
-	//console.log(req.user._id)
-	getUserPins(req,res)
-})
 .post(function(req,res){	
 	//console.log(req.user)
 	User.findOne({_id:req.user._id},function(err,user){
@@ -26,25 +22,16 @@ pinRouter.route('/')
 		user.posts.push(pin)
 		user.markModified('posts')
 		user.save(function(){
-			getUserPins(req,res)
+			crud.getUserPins(req,res,req.user._id)
 		});
 	})
 
 })
+
 .delete(function(req,res){
 	//console.log(req.body)
-	crud.delete(req,res,req.body.id,getUserPins)
+	crud.delete(req,res,req.body.id,crud.getUserPins)
 })
 
-function getUserPins(req,res){
-	User
-	.findOne({_id:req.user._id})
-	.populate('posts')
-	.exec(function(err,data){
-		if(err) throw err
-		//console.log('data',data)
-		res.json(data.posts)
-	})
-}
 
 module.exports = pinRouter;

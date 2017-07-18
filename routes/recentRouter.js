@@ -18,7 +18,7 @@ function findAllPosts(req,res){
 	.find({})
 	.exec(function(err,post){
 		if(err) throw err
-		console.log(post)
+		//console.log(post)
 		res.json(post)
 	})
 }

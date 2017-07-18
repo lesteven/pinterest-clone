@@ -5,10 +5,11 @@ import {fetchData} from '../redux/modules/fetchThunk';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom'
 import Home from '../views/home.jsx';
-import MyProfile from '../views/myProfile.jsx';
+import UserProfile from '../views/userProfile.jsx';
 
 class NavBar extends Component{
 	componentDidMount(){
@@ -17,7 +18,7 @@ class NavBar extends Component{
 	loggedIn(){
 		return(
 			<span>
-				<Link to ='/profile'>{this.props.user.name}</Link>
+				<Link to ={'/'+ this.props.user._id}>{this.props.user.name}</Link>
 				<a href ='/auth/logout'>Log Out</a>
 			</span>
 		)
@@ -32,9 +33,10 @@ class NavBar extends Component{
 						this.loggedIn()
 						:<a href='/auth/twitter'>Log In</a>}
 				</nav>
-
-				<Route exact path = '/' component ={Home}/>
-				<Route exact path = '/profile' component={MyProfile}/>
+				<Switch>
+					<Route exact path = '/' component ={Home}/>
+					<Route path = '/:user' component={UserProfile} />
+				</Switch>
 			</div>
 			</Router>
 		)

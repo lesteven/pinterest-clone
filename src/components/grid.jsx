@@ -18,6 +18,7 @@ class Grid extends Component{
 			return <Pin url={pin.url} key={pin._id}
 				id ={pin._id}
 				owner = {pin.owner}
+				ownerID = {pin._creator}
 				description={pin.description}
 				handleLoad={this.handleLoad}
 				delete = {this.props.delete}
