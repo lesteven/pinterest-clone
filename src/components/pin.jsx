@@ -32,11 +32,15 @@ class Pin extends Component{
 			</button>
 		)
 	}
+	defaultImage(event){
+		event.target.src = 'https://via.placeholder.com/350x150'
+	}
 	render(){
 		return(
 			<div className='grid-item'>
-				<img onLoad={this.props.handleLoad}
+				<img onLoad={this.props.handleLoad} onError={this.defaultImage}
 					src={this.props.url}/>
+				
 				<Link to={'/'+ this.props.ownerID} className='owner'>{this.props.owner}</Link>
 				<p className='description'>{this.props.description}</p>
 				{this.props.user.username===this.props.owner?this.deleteButton(this.props.delete,this.data()):null}
