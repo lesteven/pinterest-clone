@@ -3,11 +3,14 @@ import thunk from 'redux-thunk';
 import user from './modules/loginModule';
 import pin from './modules/postModule';
 import recent from './modules/recentModule';
+import profile from './modules/profileModule';
+
 
 const reducers = combineReducers({
 	user,
 	pin,
-	recent
+	recent,
+	profile
 })
 
 export default function configureStore(initialState){
