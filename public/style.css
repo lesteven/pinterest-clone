@@ -17,10 +17,6 @@ a:hover{
 	padding: 1%;
 	text-align: right;
 }
-#grid{
-	border-style: solid;
-	border-color: black;
-}
 .delete{
 	position:absolute;
 	top:5px;

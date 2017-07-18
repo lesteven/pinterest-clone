@@ -20,6 +20,7 @@ class Grid extends Component{
 				owner = {pin.owner}
 				description={pin.description}
 				handleLoad={this.handleLoad}
+				delete = {this.props.delete}
 				/>
 		})
 		return list;

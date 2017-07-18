@@ -49,7 +49,7 @@ class MyProfile extends Component{
 					<br/>
 					<input type='submit' value='Post'/>
 				</form>
-				<Grid data={this.props.pin} />
+				<Grid data={this.props.pin} delete='/pin'/>
 			</div>
 		)
 	}

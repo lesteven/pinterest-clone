@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import {fetchData,postInfo} from '../redux/modules/fetchThunk';
 import {post} from '../redux/modules/postModule';
-
+import {recentPosts} from '../redux/modules/recentModule';
 
 class Pin extends Component{
 	constructor(props){
@@ -14,11 +14,18 @@ class Pin extends Component{
 		}
 		return data;
 	}
-	deleteButton(data){
+	deleteButton(url,data){
+		let func;
+		if(url === '/pin'){
+			func = this.props.post
+		}
+		else{
+			func = this.props.recentPosts
+		}
 		return(
 			<button className='delete'
-			onClick={()=>{this.props.postInfo('/pin','DELETE',
-							data,this.props.post)}}>
+			onClick={()=>{this.props.postInfo(url,'DELETE',
+							data,func)}}>
 			Delete
 			</button>
 		)
@@ -30,7 +37,7 @@ class Pin extends Component{
 					src={this.props.url}/>
 				<button className='owner'>{this.props.owner}</button>
 				<p className='description'>{this.props.description}</p>
-				{this.props.user.username===this.props.owner?this.deleteButton(this.data()):null}
+				{this.props.user.username===this.props.owner?this.deleteButton(this.props.delete,this.data()):null}
 			</div>
 		)
 	}
@@ -46,7 +53,8 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
 	return{
 		postInfo:(url,method,data,actFunc)=>dispatch(postInfo(url,method,data,actFunc)),
-		post:(pin)=>dispatch(post(pin))
+		post:(pin)=>dispatch(post(pin)),
+		recentPosts:(recent)=>dispatch(recentPosts(recent))
 	}
 }
 

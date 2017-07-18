@@ -13,7 +13,7 @@ class Home extends Component{
 		return(
 			<div>
 				<h3>Home</h3>
-				<Grid data={this.props.recent}/>
+				<Grid data={this.props.recent} delete='/recent'/>
 			</div>
 		)
 	}

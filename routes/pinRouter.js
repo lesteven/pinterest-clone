@@ -2,6 +2,8 @@ var express = require('express');
 var pinRouter = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
+var crud = require('./crudFunctions');
+
 
 pinRouter.route('/')
 
@@ -31,7 +33,7 @@ pinRouter.route('/')
 })
 .delete(function(req,res){
 	//console.log(req.body)
-	deletePin(req,res,req.body.id)
+	crud.delete(req,res,req.body.id,getUserPins)
 })
 
 function getUserPins(req,res){
@@ -44,18 +46,5 @@ function getUserPins(req,res){
 		res.json(data.posts)
 	})
 }
-function deletePin(req,res,id){
-	Post.findOneAndRemove({_id:id})
-	.exec(function(err,removed){
-		User.findOneAndUpdate(
-			{_id:req.user._id},
-			{$pull:{posts:id}},
-			{new:true},
-			function(err,removed){
-				if(err){console.log(err)}
-					getUserPins(req,res)
-			}
-		)
-	})
-}
+
 module.exports = pinRouter;
