@@ -13,8 +13,8 @@ profileRouter.route('/')
 
 function findParam(req){
 	var url = req.headers.referer
-	var regex = /\8080\/(.*)/
-	//var regex2 = /\.com\/(.*)/
+	//var regex = /\8080\/(.*)/
+	var regex = /\.com\/(.*)/
 	var param = regex.exec(url)[1]
 	return param
 }
