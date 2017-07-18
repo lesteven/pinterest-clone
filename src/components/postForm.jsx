@@ -24,11 +24,19 @@ class PostForm extends Component{
 		}
 		return postData;
 	}
+	resetData(){
+		let data ={
+			description:'',
+			url:''
+		}
+		return data;
+	}
 	render(){
 		return(
 			<form autoComplete='off' onSubmit={(e)=>{
 				e.preventDefault();this.props.postInfo('/pin',
 					'POST',this.postData(),this.props.profilePosts);
+					this.setState(resetData());
 			}}>
 				<input type='text' name = 'description'
 					onChange={this.handleChange}
