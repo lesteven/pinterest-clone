@@ -1,12 +1,12 @@
 var passport = require('passport');
 var User = require('../models/user');
-var config = require('../config.js');
+//var config = require('../config.js');
 var TwitterStrategy  = require('passport-twitter').Strategy;
 
 passport.use(new TwitterStrategy({
-    consumerKey: (process.env.KEY || config.KEY),
-    consumerSecret: (process.env.SECRET|| config.SECRET),
-    callbackURL: config.URL
+    consumerKey: process.env.KEY //|| config.KEY),
+    consumerSecret: process.env.SECRET //|| config.SECRET),
+    callbackURL: 'https://stormy-badlands-58815.herokuapp.com/auth/twitter/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile.username)
