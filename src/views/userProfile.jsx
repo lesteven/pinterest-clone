@@ -13,7 +13,7 @@ class UserProfile extends Component{
 		let data = JSON.parse(JSON.stringify(this.props.profile[0]))
 		return(
 			<div>
-				<h3>{data.owner || this.props.user.username}</h3>
+				<h3>{data.owner}</h3>
 			</div>
 		)
 	}
